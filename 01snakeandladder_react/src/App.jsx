@@ -59,8 +59,9 @@ function App() {
   let [ladderP, setLadderP] = useState([3, 6, 20, 25, 52, 57])
 
   let [disableChangeBoardButton, setChangeDisableButton] = useState(false)
-  let [disablePvP,setPvPDisable] = useState(false)
   let [disableComputer,setComputerDisable] = useState(false)
+  
+  let [vsComputer,setVsComputer] = useState(false)
 
 
   useEffect(() => {
@@ -110,9 +111,16 @@ function App() {
 
   }
 
+  function computer(event) {
+    setVsComputer(event.target.checked)
+    console.log(event.target.checked ? 'vs computer':'vs human')
+    
+  }
+
 
   function roll() {
     setChangeDisableButton(true)
+    setComputerDisable(true)
     let val = Math.floor(Math.random() * 6 + 1)
     setDice(val)
     if (turn == 0) {
@@ -139,7 +147,7 @@ function App() {
       }
 
     }
-    else {
+    else if (turn == 1 && !vsComputer){
       if (!(positionTwo + val > 100)) {
         setPositionTwo(positionTwo + val)
       }
@@ -163,11 +171,50 @@ function App() {
       }
     }
 
+
     console.log('snakeP', snakeP);
     console.log('ladderP', ladderP);
     setTurn(!turn)
 
+    console.log(val)
+    
+    return val
+
   }
+
+  useEffect(()=>{
+
+    setTimeout(() => {      
+      if (turn == 1 && vsComputer){
+        let val = Math.floor(Math.random() * 6 + 1)
+        setDice(val)
+        if (!(positionTwo + val > 100)) {
+          setPositionTwo(positionTwo + val)
+        }
+  
+        if (snakeP.includes(positionTwo + val)) {
+          setPositionTwo(positionTwo + val)
+          setTimeout(() => {
+            console.log('retracking back');
+  
+            setPositionTwo(snakes[snakeP.indexOf(positionTwo + val)][1])
+          }, 500);
+        }
+  
+        if (ladderP.includes(positionTwo + val)) {
+          setPositionTwo(positionTwo + val)
+          setTimeout(() => {
+            console.log('retracking back');
+  
+            setPositionTwo(ladders[ladderP.indexOf(positionTwo + val)][1])
+          }, 500);
+        }
+  
+        setTurn(!turn)
+      }
+    }, 1500)
+
+  },[turn])
 
   return (
     <>
@@ -180,8 +227,7 @@ function App() {
 
 
         <button className='bg-blue-500 rounded-xl p-2 m-2 hover:bg-blue-300 disabled:cursor-not-allowed disabled:bg-blue-300' onClick={changeBoard} disabled={disableChangeBoardButton} >Change Board</button>
-        <button className='bg-blue-500 rounded-xl p-2 m-2 hover:bg-blue-300 disabled:cursor-not-allowed disabled:bg-blue-300'> PvP</button>
-        <input className='bg-blue-500 rounded-xl p-2 m-2 hover:bg-blue-300 ' type='checkbox' id = 'vsc'/> 
+        <input className='bg-blue-500 rounded-xl p-2 m-2 hover:bg-blue-300 ' type='checkbox' id = 'vsc' onChange={computer} checked={vsComputer} disabled={disableComputer}/> 
         <label htmlFor="vsc" className='py-2 my-2'>vs Computer</label>
         
       </div>
