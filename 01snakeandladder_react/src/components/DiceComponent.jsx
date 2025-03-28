@@ -35,38 +35,38 @@ function DiceComponent({ id = 1,
             <div>
 
                 {id == 1 ?
-                    <div className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'}>
-                        <img src={getDie(id)} onClick={onClick}/>
+                    <div onClick={onClick} className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'} >
+                        <img src={getDie(id)} />
                     </div>
                     : <div></div>
                 }
                 {id == 2 ?
-                    <div className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'}>
-                        <img src={getDie(id)} onClick={onClick}/>
+                    <div onClick={onClick} className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'} >
+                        <img src={getDie(id)} />
                     </div>
                     : <div></div>
                 }
                 {id == 3 ?
-                    <div className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'}>
-                        <img src={getDie(id)} onClick={onClick}/>
+                    <div onClick={onClick} className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'} >
+                        <img src={getDie(id)} />
                     </div>
                     : <div></div>
                 }
                 {id == 4 ?
-                    <div className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'}>
-                        <img src={getDie(id)} onClick={onClick}/>
+                    <div onClick={onClick} className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'} >
+                        <img src={getDie(id)} />
                     </div>
                     : <div></div>
                 }
                 {id == 5 ?
-                    <div className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'}>
-                        <img src={getDie(id)} onClick={onClick}/>
+                    <div onClick={onClick} className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'} >
+                        <img src={getDie(id)} />
                     </div>
                     : <div></div>
                 }
                 {id == 6 ?
-                    <div className='bg-blue-500 m-2 rounded-2xl'>
-                        <img src={getDie(id)} onClick={onClick}/>
+                    <div onClick={onClick} className={turn?'bg-blue-500 m-2 rounded-2xl':'bg-red-500 m-2 rounded-2xl'} >
+                        <img src={getDie(id)} />
                     </div>
                     : <div></div>
                 }

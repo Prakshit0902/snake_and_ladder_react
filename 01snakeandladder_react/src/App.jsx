@@ -121,9 +121,9 @@ function App() {
   function roll() {
     setChangeDisableButton(true)
     setComputerDisable(true)
-    let val = Math.floor(Math.random() * 6 + 1)
-    setDice(val)
     if (turn == 0) {
+      let val = Math.floor(Math.random() * 6 + 1)
+      setDice(val)
       if (!(positionOne + val > 100)) {
         setPositionOne(positionOne + val)
       }
@@ -146,8 +146,12 @@ function App() {
         }, 500);
       }
 
+      setTurn(!turn)
+
     }
     else if (turn == 1 && !vsComputer){
+      let val = Math.floor(Math.random() * 6 + 1)
+      setDice(val)
       if (!(positionTwo + val > 100)) {
         setPositionTwo(positionTwo + val)
       }
@@ -169,19 +173,18 @@ function App() {
           setPositionTwo(ladders[ladderP.indexOf(positionTwo + val)][1])
         }, 500);
       }
+      setTurn(!turn)
     }
 
 
     console.log('snakeP', snakeP);
     console.log('ladderP', ladderP);
-    setTurn(!turn)
 
     console.log(val)
     
     return val
 
   }
-
   useEffect(()=>{
 
     setTimeout(() => {      
@@ -209,12 +212,25 @@ function App() {
             setPositionTwo(ladders[ladderP.indexOf(positionTwo + val)][1])
           }, 500);
         }
-  
         setTurn(!turn)
       }
+      
     }, 1500)
-
   },[turn])
+
+
+  function turnHeading(){
+    if (vsComputer && turn){
+      return <div className='p-2 text-2xl'>Computer's turn </div>
+    }
+    else if (vsComputer && !turn){
+      return <div className='p-2 text-2xl'>Player 1's turn </div>
+    }
+
+    if (!vsComputer){
+      return <div className='p-2 text-2xl'>Player {turn + 1} 's turn </div>
+    }
+  }
 
   return (
     <>
@@ -223,8 +239,7 @@ function App() {
       </div>
       <div className='flex m-2 justify-center'>
 
-        <div className='p-2'>Player {turn + 1} 's turn </div>
-
+            {turnHeading()}
 
         <button className='bg-blue-500 rounded-xl p-2 m-2 hover:bg-blue-300 disabled:cursor-not-allowed disabled:bg-blue-300' onClick={changeBoard} disabled={disableChangeBoardButton} >Change Board</button>
         <input className='bg-blue-500 rounded-xl p-2 m-2 hover:bg-blue-300 ' type='checkbox' id = 'vsc' onChange={computer} checked={vsComputer} disabled={disableComputer}/> 
@@ -259,7 +274,7 @@ function App() {
         ))}
         <div className='flex'>
 
-          <DiceComponent id={dice} onClick={roll} turn={!turn} />
+          <DiceComponent id={dice} onClick={roll} turn={!turn}/>
         </div>
       </div>
     </>
