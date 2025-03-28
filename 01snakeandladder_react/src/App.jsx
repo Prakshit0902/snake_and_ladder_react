@@ -69,20 +69,23 @@ function App() {
       setPositionOne(100)
 
       setTimeout(() => {
-        let reload = window.confirm('Player 1 Wins')
-        if (reload) {
-          location.reload()
-        }
-      }, 500);
+        window.confirm('Player 1 Wins')
+        location.reload()
+      }, 250);
     }
     if (positionTwo >= 100) {
       setPositionTwo(100)
       setTimeout(() => {
-        let reload = window.confirm('Player 2 Wins')
-        if (reload) {
+        if (vsComputer){
+          window.confirm('Computer Wins')
           location.reload()
         }
-      }, 500);
+        else {
+          window.confirm('Player 2 Wins')
+          location.reload()
+
+        }
+      }, 250);
     }
   }, [positionOne, positionTwo])
 
@@ -180,9 +183,6 @@ function App() {
     console.log('snakeP', snakeP);
     console.log('ladderP', ladderP);
 
-    console.log(val)
-    
-    return val
 
   }
   useEffect(()=>{
@@ -215,7 +215,7 @@ function App() {
         setTurn(!turn)
       }
       
-    }, 1500)
+    }, 1000)
   },[turn])
 
 
